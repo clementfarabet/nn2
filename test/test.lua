@@ -632,7 +632,6 @@ function nntest.SpatialConvolution()
 
    -- batch
    
-   --verbose = true
    local batch = math.random(2,5)
    outi = math.random(4,8)
    outj = math.random(4,8)
@@ -640,10 +639,6 @@ function nntest.SpatialConvolution()
    inj = (outj-1)*sj+kj
    module = nn.SpatialConvolution(from, to, ki, kj, si, sj)
    input = torch.Tensor(batch,from,inj,ini):zero()
-
---    print(from, to, ki, kj, si, sj, batch, ini, inj)
---    print(module.weight:size())
---    print(module.gradWeight:size())
 
    local err = jac.testJacobian(module, input)
    mytester:assertlt(err, precision, 'batch error on state ')
@@ -1179,7 +1174,7 @@ end
 mytester:add(nntest)
 
 if not nn then
-   require 'nn'
+   require 'nn2'
    jac = nn.Jacobian
    mytester:run()
 else
